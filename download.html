@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErikOS v4.15 | Install</title>
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #f5f5f7;
+            --accent: #0071e3; /* Apple Blue */
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* --- ANIMACIONES --- */
+        .fade-in { animation: fadeIn 1s ease forwards; }
+        .fade-out { animation: fadeOut 0.5s ease forwards; }
+        .slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* --- PANTALLAS (SECCIONES) --- */
+        .screen {
+            display: none; /* Se ocultan por defecto */
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .screen.active { display: block; }
+
+        /* --- TIPOGRAFÍA --- */
+        h1 { font-size: 3.5rem; font-weight: 700; letter-spacing: -0.05em; margin-bottom: 20px; }
+        h2 { font-size: 2rem; font-weight: 600; margin-bottom: 15px; }
+        p { font-size: 1.1rem; color: #86868b; margin-bottom: 30px; line-height: 1.5; }
+        .highlight { color: var(--text); font-weight: 600; }
+
+        /* --- BOTONES --- */
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 980px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            text-decoration: none;
+        }
+        .btn:hover { transform: scale(1.05); background: #0077ed; }
+        
+        /* --- CARDS PARA TIPS --- */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        .card {
+            background: #1c1c1e;
+            padding: 20px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+        }
+        .card h3 { margin-bottom: 5px; font-size: 1rem; color: var(--text); }
+        .card p { margin-bottom: 0; font-size: 0.85rem; }
+
+        /* --- ESTILOS ESPECÍFICOS --- */
+        #hello-text {
+            font-size: 5rem;
+            background: linear-gradient(90deg, #fff, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .step-list {
+            text-align: left;
+            background: #1c1c1e;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+        .step-list li {
+            list-style: none;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .step-number {
+            background: var(--accent);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="screen-1" class="screen active">
+        <div id="hello-text" class="fade-in">Hello</div>
+    </div>
+
+    <div id="screen-2" class="screen">
+        <h1 class="slide-up">ErikOS v4.15</h1>
+        <p class="slide-up">El sistema operativo definitivo para tu ESP32.</p>
+        
+        <div class="slide-up" style="margin-top: 50px;">
+            <p>Prepara tu dispositivo con pantalla táctil y conéctalo por USB.</p>
+            <button class="btn" onclick="nextScreen(3)">Comenzar Instalación</button>
+        </div>
+    </div>
+
+    <div id="screen-3" class="screen">
+        <h2 class="slide-up">Instalación Mágica</h2>
+        <p class="slide-up">Sigue las instrucciones de la ventana emergente.</p>
+
+        <div class="slide-up" style="background: #111; padding: 40px; border-radius: 30px; border: 1px solid #333;">
+            <esp-web-install-button manifest="manifest.json">
+                <button slot="activate" class="btn">Instalar ErikOS Ahora</button>
+                <span slot="unsupported" style="color:red">Usa Chrome o Edge en PC/Android</span>
+                <span slot="not-allowed" style="color:orange">Necesitas HTTPS</span>
+            </esp-web-install-button>
+            
+            <p style="font-size: 0.8rem; margin-top: 20px;">
+                Al terminar la barra de progreso, haz clic en <br>
+                <strong style="color: white;">"Siguiente"</strong>
+            </p>
+        </div>
+
+        <br>
+        <button class="btn" style="background: #333;" onclick="nextScreen(4)">Ya se ha instalado &rarr;</button>
+    </div>
+
+    <div id="screen-4" class="screen">
+        <h2 class="slide-up">Casi listos...</h2>
+        <p class="slide-up">Tu ESP32 se reiniciará. Ahora configúralo:</p>
+
+        <div class="step-list slide-up">
+            <li><span class="step-number">1</span> Abre WiFi en tu móvil.</li>
+            <li><span class="step-number">2</span> Conéctate a <strong style="color:white; margin-left:5px;">ErikMobile Configuration</strong>.</li>
+            <li><span class="step-number">3</span> Toca "Configure WiFi" y pon tu contraseña.</li>
+            <li><span class="step-number">4</span> Espera a que la pantalla muestre el Home.</li>
+        </div>
+
+        <button class="btn slide-up" onclick="nextScreen(5)">¡Listo! Ver Tips Pro</button>
+    </div>
+
+    <div id="screen-5" class="screen">
+        <h2 class="slide-up">Domina ErikOS</h2>
+        <p class="slide-up">Novedades exclusivas de la versión 4.15</p>
+
+        <div class="tips-grid slide-up">
+            <div class="card">
+                <h3>🔦 Linterna RGB</h3>
+                <p>Hardware actualizado. Conecta tu NeoPixel en el <strong>Pin 23</strong> para control total de color.</p>
+            </div>
+            <div class="card">
+                <h3>🧠 ErikAI Core</h3>
+                <p>Pregúntale "¿Quién es Erik?". El modelo Mistral-7B conoce a su creador.</p>
+            </div>
+            <div class="card">
+                <h3>⚡ WiFi Skip</h3>
+                <p>¿Sin internet? Ahora puedes pulsar "Omitir" en la pantalla de carga para usar las apps offline.</p>
+            </div>
+            <div class="card">
+                <h3>🌦️ El Tiempo</h3>
+                <p>Datos en tiempo real. Asegúrate de tener la API Key configurada para tu ciudad.</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 40px; font-size: 0.8rem;">Developed by Erik Ripoll</p>
+        <a href="#" onclick="location.reload()" style="color: #444; text-decoration: none;">Reiniciar presentación</a>
+    </div>
+
+    <script>
+        // LÓGICA DE NAVEGACIÓN Y ANIMACIÓN INICIAL
+        
+        setTimeout(() => {
+            // Efecto Hello -> Fade Out -> Ir a pantalla 2
+            document.getElementById('hello-text').classList.add('fade-out');
+            setTimeout(() => {
+                nextScreen(2);
+            }, 600);
+        }, 2500); // 2.5 segundos de Hello
+
+        function nextScreen(screenNumber) {
+            // Ocultar todas
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+            });
+            // Mostrar la nueva con animación
+            const next = document.getElementById('screen-' + screenNumber);
+            next.classList.add('active');
+            
+            // Reiniciar animaciones de los hijos para que se vean bonitas
+            const animatedElements = next.querySelectorAll('.slide-up');
+            animatedElements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; /* trigger reflow */
+                el.style.animation = null; 
+            });
+        }
+    </script>
+</body>
+</html>
