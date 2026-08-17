@@ -1,6 +1,6 @@
 {
-  "name": "ErikOS Mobile v5",
-  "version": "5.2",
+  "name": "ErikOS Mobile v12",
+  "version": "12.5",
   "new_install_prompt_erase": true,
   "builds": [
     {
