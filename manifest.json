@@ -6,7 +6,7 @@
     {
       "chipFamily": "ESP32",
       "parts": [
-        { "path": "erikos.bin", "offset": 65536 }
+        { "path": "erikos.bin", "offset": 0 }
       ]
     }
   ]
